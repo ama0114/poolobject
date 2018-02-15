@@ -9,12 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-<<<<<<< Updated upstream
-=======
 import junit.framework.Assert;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
->>>>>>> Stashed changes
 import ubu.gii.dass.c01.ReusablePool;
 
 /**
