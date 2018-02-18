@@ -56,6 +56,7 @@ public class ReusablePoolTest {
 		 Reusable r1 = pool.acquireReusable();
 		 assertNotNull(r1);
 		 assertTrue( r1 instanceof Reusable);
+		 assertTrue(r1.util().equals(r1.hashCode() + "  :Uso del objeto Reutilizable"));
 		 
 		 while(true) {
 			 pool.acquireReusable();
