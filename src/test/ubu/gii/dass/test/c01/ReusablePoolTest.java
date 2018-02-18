@@ -7,9 +7,11 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import junit.framework.Assert;
+import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
@@ -55,13 +57,25 @@ public class ReusablePoolTest {
 		 assertNotNull(r1);
 		 assertTrue( r1 instanceof Reusable);
 	}
-
+	
+	// Es una forma de manejar excepciones en los test de JUnit
+	@Rule
+	public ExpectedException dupicatedInstanceException = ExpectedException.none();
+	
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * @throws DuplicatedInstanceException 
 	 */
-	@Test
-	public void testReleaseReusable() {
-		fail("Not yet implemented");
+	@Test //(expected = DuplicatedInstanceException.class) // Esta es otra forma, descomentar para probar
+	public void testReleaseReusable() throws DuplicatedInstanceException, NotFreeInstanceException {
+		
+		ReusablePool pool = ReusablePool.getInstance();
+		Reusable r1 = pool.acquireReusable();
+
+		pool.releaseReusable(r1); //No deberia dar error
+		
+		dupicatedInstanceException.expect(DuplicatedInstanceException.class); //Comentar para probar la otra forma
+		pool.releaseReusable(r1); //Deberia saltar una excepcion
 	}
 
 }
