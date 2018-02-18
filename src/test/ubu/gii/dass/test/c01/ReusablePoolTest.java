@@ -50,12 +50,17 @@ public class ReusablePoolTest {
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
 	 * @throws NotFreeInstanceException 
 	 */
-	@Test
+	@Test (expected = NotFreeInstanceException.class)
 	public void testAcquireReusable() throws NotFreeInstanceException {
 		 ReusablePool pool = ReusablePool.getInstance();
 		 Reusable r1 = pool.acquireReusable();
 		 assertNotNull(r1);
 		 assertTrue( r1 instanceof Reusable);
+		 
+		 while(true) {
+			 pool.acquireReusable();
+		 }
+		 
 	}
 	
 	// Es una forma de manejar excepciones en los test de JUnit
